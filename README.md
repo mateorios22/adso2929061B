@@ -3,7 +3,7 @@
 ### Centro de procesos Industriales y Construccion 
 ---
 
-![kratos](https://tinyurl.com/4kdx59h3)
+![kratos](https://tinyurl.com/yzu2w62e)
 
 [ADSOfilesdrive](https://tinyurl.com/wnkk334u)
 
