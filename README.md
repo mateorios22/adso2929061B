@@ -4,9 +4,10 @@
 ---
 
 ![kratos](https://tinyurl.com/38adxueh)
+
 | ID |  TOPIC | DESCRIPTION                                     |
 |--- | ---    | ---                                             |
-|01  | Emet   | WORK FLOW - Markup & stylish                    |
+|01  | Emmet  | WORK FLOW - Markup & stylish                    |
 |02  | html   | Structure - HyperTextet - Cascading Style Sheets|
 |03  | Css    | Look & Fell - Cascading Style Sheets            |
 
