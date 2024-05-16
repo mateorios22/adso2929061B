@@ -59,7 +59,7 @@ body, html{
 /*03 V A R I A B L E S */
 /*--------------*/
 :root {
-    --color-1: #fff9;
+    --color-1: rgb(246, 245, 245);
     --color-2: #0009;
     --font-bd: "Poppins", sans-serif;
 }
@@ -73,6 +73,29 @@ body {
     min-height: 100vh;
     align-items: center;
     color: var(--color-2);
+    nav {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        a:is(:link, :visited) {
+            background-color: var(--color-2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            height: 40px;
+            opacity: .8;
+            transition: all 0.2s ease-in;
+            width: 40px;
+            svg{
+                width: 24px;
+            }
+
+        }
+        a:is(:hover) {
+            opacity: 1;
+            transform: scale(1.12);
+        }
+    }
     main {
         header {
             display: flex;
@@ -81,7 +104,8 @@ body {
             align-items: center;
             h1 {
                 font-size: 3rem;
-                font-weight: 600;
+                display: flex;
+                font-weight: 400;
                 display: center;
                 align-items: center;
                 gap: 0.6rem;
@@ -115,6 +139,13 @@ body {
                 color: var(--color-1);
                 padding: 15px 20px
             }
+            p {
+                color:#0b0a0a;
+                margin: 0 auto;
+                width: 80%;
+                text-align: justify;
+
+            }
             img {
                 border-radius: 50%;
                 border: 10px solid var(--color-2);
@@ -136,17 +167,20 @@ body {
         gap: 1rem;
         a:is(:link, :visited) {
             border-radius: 50px;
-            background-color: var(--color-1);
+            background: linear-gradient(to right, #fffc, #fff3);
+            color: var(--color-1);
             color: var(--color-2);
             display: flex;
+            align-items: center;
             padding: 0.6rem;
             text-decoration: none;
             transition: all 0.3s ease-in;
             gap: 0.6rem;
             width: 240px;
+            
         } 
         a:is(:hover) {
-            background-color:var(#d30d0d);
+            background: linear-gradient( right, #fffc,#d30d0d );
             transform: scale(1.05) translateY(-4px);
         }
         span {
@@ -161,6 +195,13 @@ body {
             width: 28px;
         }
     }
+    section {
+        background-color: var(--color-2);
+        border-radius: 4px;
+        margin-block: 1rem;
+        min-height: 25vh;
+        width: 400px;
+    }
 }
 /*--------------------*/
 /* M A I N M E N U*/
@@ -171,4 +212,15 @@ background-attachment: fixed;
 background-size: cover;
    
 }
-    
+/*--------------------*/
+/* EMMET M E N U*/
+body.emmet {
+    background-color: #ffffff;
+    background-image: urlbackground-color: #487346;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='329' height='329' viewBox='0 0 200 200'%3E%3Cg %3E%3Cpolygon fill='%234c8e43' points='100 57.1 64 93.1 71.5 100.6 100 72.1'/%3E%3Cpolygon fill='%236aac5f' points='100 57.1 100 72.1 128.6 100.6 136.1 93.1'/%3E%3Cpolygon fill='%234c8e43' points='100 163.2 100 178.2 170.7 107.5 170.8 92.4'/%3E%3Cpolygon fill='%236aac5f' points='100 163.2 29.2 92.5 29.2 107.5 100 178.2'/%3E%3Cpath fill='%2389CC7C' d='M100 21.8L29.2 92.5l70.7 70.7l70.7-70.7L100 21.8z M100 127.9L64.6 92.5L100 57.1l35.4 35.4L100 127.9z'/%3E%3Cpolygon fill='%23000000' points='0 157.1 0 172.1 28.6 200.6 36.1 193.1'/%3E%3Cpolygon fill='%23000000' points='70.7 200 70.8 192.4 63.2 200'/%3E%3Cpolygon fill='%23000000' points='27.8 200 63.2 200 70.7 192.5 0 121.8 0 157.2 35.3 192.5'/%3E%3Cpolygon fill='%23000000' points='200 157.1 164 193.1 171.5 200.6 200 172.1'/%3E%3Cpolygon fill='%23000000' points='136.7 200 129.2 192.5 129.2 200'/%3E%3Cpolygon fill='%23000000' points='172.1 200 164.6 192.5 200 157.1 200 157.2 200 121.8 200 121.8 129.2 192.5 136.7 200'/%3E%3Cpolygon fill='%23000000' points='129.2 0 129.2 7.5 200 78.2 200 63.2 136.7 0'/%3E%3Cpolygon fill='%23000000' points='200 27.8 200 27.9 172.1 0 136.7 0 200 63.2 200 63.2'/%3E%3Cpolygon fill='%23000000' points='63.2 0 0 63.2 0 78.2 70.7 7.5 70.7 0'/%3E%3Cpolygon fill='%23000000' points='0 63.2 63.2 0 27.8 0 0 27.8'/%3E%3C/g%3E%3C/svg%3E"); 
+background-attachment: fixed;
+background-size: cover;
+   
+}
+
+
