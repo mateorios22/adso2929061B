@@ -73,6 +73,7 @@ body {
     min-height: 100vh;
     align-items: center;
     color: var(--color-2);
+    flex-wrap: wrap;
     nav {
         position: fixed;
         top: 10px;
@@ -189,6 +190,7 @@ body {
         margin-top: 2rem;
         justify-content: center;
         gap: 1rem;
+        margin-bottom: 2rem;
         a:is(:link, :visited) {
             border-radius: 50px;
             background: linear-gradient(to right, #fffc, #fff3);
