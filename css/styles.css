@@ -59,8 +59,8 @@ body, html{
 /*03 V A R I A B L E S */
 /*--------------*/
 :root {
-    --color-1: rgb(246, 245, 245);
-    --color-2: #0009;
+    --color-1: rgba(244, 226, 226, 0.767);
+    --color-2: rgba(13, 72, 41, 0.811);
     --font-bd: "Poppins", sans-serif;
 }
     
@@ -140,7 +140,7 @@ body {
                 padding: 15px 20px
             }
             p {
-                color:#0b0a0a;
+                color:#060606;
                 margin: 0 auto;
                 width: 80%;
                 text-align: justify;
@@ -156,6 +156,30 @@ body {
             }
             
 
+        }
+        section {
+            padding: 1rem;
+            h3 {
+                border-bottom: 2px dotted var(--color-2);
+            }
+            p {
+                font-size: 1.6rem;
+                margin-bottom: 0.6rem;
+                svg {
+                    width: 33px;
+                    
+                    
+                    
+                }
+            }
+            xmp {
+                color:rgb(3, 3, 3);
+                margin-top: 0.6rem;
+                border-radius: 5px;
+                padding: 0 0.6rem 0.6rem;
+                background-color: rgba(154, 203, 156, 0.641);
+
+            }
         }
     }
     menu {
@@ -196,7 +220,7 @@ body {
         }
     }
     section {
-        background-color: var(--color-2);
+        background-color: var(--color-1);
         border-radius: 4px;
         margin-block: 1rem;
         min-height: 25vh;
