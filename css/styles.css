@@ -160,6 +160,10 @@ body {
         }
         section {
             padding: 1rem;
+            min-width: 400px;
+            border-radius: 4px;
+            margin-block: 1rem;
+            min-height: 25vh;
             h3 {
                 border-bottom: 2px dotted var(--color-2);
             }
