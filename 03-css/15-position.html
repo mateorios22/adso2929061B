@@ -5,6 +5,55 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>15- Position</title>
 <link rel="stylesheet" href="../css/styles.css">
+<style>
+	main ul {
+		color: #fff9
+	}
+	div.parent {
+		border: 2px solid #0009;
+		margin: 2rem auto;
+		padding: 2rem;
+		width: 260px;
+		position: relative;
+		min-height: 100px;
+		background-color: #fff6;
+	}
+	div.child {
+		background-color: #0006;
+		color: #fff9;
+		padding: 0.4rem;
+		text-align: center;
+		width: 80px;
+		}
+		div.relative {
+			position: relative;
+			top: -20px;
+			left: 130px;
+		}
+		div.absolute {
+			position: absolute;
+			bottom: 12px;
+			left: 14px;
+		}
+		div.fixed {
+			position: fixed;
+			top: 700px;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 9;
+			}
+		div.sticky {
+            position: -webkit-sticky;
+			position: sticky;
+			top: 20px;
+			width: 100%;
+		}
+		div.parent p {
+			text-align: justify;
+			font-size: 0.8rem !important;
+			
+		}
+</style>
 </head>
 <body class="css">
 <nav>
@@ -24,22 +73,24 @@
 	</ul>
 </header>
 <section>
-	<h3>normal/Static</h3>
-	<div class="parent"></div>
-	    <div class="child normal/static">Box</div>
-		
 	<h3>relative</h3>
-	<div class="parent"></div>
-	    <div class="child relative">Box</div>
+	<div class="parent">
+	    <div class="child relative">Box <small>relative</small></div>
+	</div>
+	<h3>absolute</h3>
+	<div class="parent">
+		<div class="child absolute">Box <small>absolute</small></div>
+	</div>
 	<h3>fixed</h3>	
-	<div class="parent"></div>	
-	    <div class="child fixed">Box</div>
+	<div class="parent">
+	    <div class="child fixed">Box <small>fixed</small></div>
+	</div>	
 	<h3>sticky</h3>	
-	<div class="parent"></div>
+	<div class="parent">
 	    <div class="child sticky">Box</div>	
 		<p>
-			Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur rem quibusdam a amet aperiam, voluptatem possimus facilis ab beatae ducimus iste. Debitis aliquam suscipit at nihil numquam ex officiis quos sapiente. Eius saepe reprehenderit dolores sequi recusandae nostrum deleniti exercitationem corrupti assumenda cupiditate accusamus illo, tempore molestias quam doloribus laborum.
-		</p>
+			Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam deserunt odio ducimus consequuntur dolore tempore nostrum vel nihil minus, architecto eum at nisi aut laudantium quaerat cum iusto delectus blanditiis? Ut, error? Modi nemo magnam sequi? Necessitatibus dolorem quis natus sint tempora voluptas animi aliquid, nemo, nihil saepe, velit hic itaque veniam. Nobis quos debitis alias cum quibusdam et obcaecati amet dolores, rerum magnam ea quaerat consequuntur! Officia iusto quos sunt reprehenderit, voluptatum amet. Nesciunt dolorum nulla facilis optio aut maiores porro vitae, obcaecati deserunt, perferendis hic eveniet illum nam quia assumenda, dignissimos rerum at ipsa debitis laudantium eum ut maxime impedit quaerat! At voluptatum odit, necessitatibus sequi vel rerum recusandae iusto voluptate quo impedit sint magnam atque. Quaerat mollitia aut deserunt ducimus, reprehenderit, at quod vero eos tenetur veritatis laudantium aliquid nostrum necessitatibus maxime? Qui molestiae soluta culpa quae voluptatem explicabo alias animi! Inventore nisi ut maiores provident cupiditate cum modi est! Laboriosam unde tempore amet quasi perferendis quidem vitae quis ipsa ducimus dicta repellendus laudantium molestias rem eligendi temporibus, facere officia deserunt sequi ipsum vero corrupti atque nostrum excepturi. Culpa sit rem vel! Eum praesentium, commodi porro natus quisquam mollitia? Consequuntur illo amet fuga sunt architecto, pariatur velit?
+		</div>
 </section>
 </main>
 </body>
