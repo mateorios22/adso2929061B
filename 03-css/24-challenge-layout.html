@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>24- challenge Sprite</title>
+</head>
+<style>
+	body {
+		background-color: #17a053;
+	}
+	div.logo {
+		background: url(images/spriteweb.png);
+		background-position: -10px -400px;
+		height: 190px;
+		margin: 0 auto;
+		width: 190px;
+		}
+		div.sprite2 {
+			background: url(images/spriteweb.png);
+			width: 220px;
+			height:200px;
+			display: flex;
+			align-items: start;
+			background-position: 3500px -8px;
+			justify-content: center;
+			display: center;
+			margin: 0.5px;
+			margin: auto;
+			gap: 1rem;
+			border: 3px white solid;
+			
+			
+			
+		}
+		menu {
+			align-items: center;
+			display: flex;
+			justify-content: center;
+			gap: 1rem;
+			
+		}
+		menu a {
+            background-color: #18542c;
+			padding: 1rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 120px;
+			height: 35px;
+			border-bottom: white solid;
+			color: white;
+			text-decoration: none;
+		}
+		menu a:hover{
+			border-bottom: yellow solid;
+			color: black;
+		}
+			div.parent {
+				border: 3px solid white;
+		        border-radius: 8px;
+		        margin: 2rem auto;
+				height: 250px;
+				width: 800px;
+				background-color: #18542c;
+				display: flex;
+				gap: 1.5rem;
+				align-items: center;
+				
+				
+	}
+	div.child1 {
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		background-color: white;
+		display: flex;
+		text-align: center;
+		gap: 1rem;
+		width: 800px;
+		padding: 1rem;
+		margin: 0 auto;
+	}
+	div.child2 {
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		background-color: white;
+		display: flex;
+		text-align: center;
+		gap: 1rem;
+		width: 800px;
+		padding: 1rem;
+		margin: 0 auto;
+
+	}
+	div.child3 {
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		background-color: white;
+		display: flex;
+		text-align: center;
+		gap: 1rem;
+		width: 800px;
+		padding: 1rem;
+		margin: 0 auto;
+	}
+</style>
+<body>
+	<main>
+		<div class="logo"></div>
+		<menu>
+			<a href="">INICIO</a>
+			<a href="">NOSOTROS</a>
+			<a href="">PORTAFOLIO</a>
+			<a href="">SERVIVCIOS </a>
+			<a href="">CONTACTO</a>
+			</div>
+		</menu>
+		<section>
+		<div class="parent">
+			<div class="sprite2">
+				<div class="child1">sprite 01</div>
+			</div>
+			<div class="sprite2">
+				<div class="child2">sprite 02</div>
+			</div>
+			<div class="sprite2">
+				<div class="child3">sprite 03</div>
+			</div>
+		</div>
+	</section>
+	</main>
+</body>
+</html>
