@@ -1,136 +1,301 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>24- challenge Sprite</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPRITE</title>
+    
+    
 </head>
 <style>
 	body {
-		background-color: #17a053;
-	}
-	div.logo {
-		background: url(images/spriteweb.png);
-		background-position: -10px -400px;
-		height: 190px;
-		margin: 0 auto;
-		width: 190px;
-		}
-		div.sprite2 {
-			background: url(images/spriteweb.png);
-			width: 220px;
-			height:200px;
-			display: flex;
-			align-items: start;
-			background-position: 3500px -8px;
-			justify-content: center;
-			display: center;
-			margin: 0.5px;
-			margin: auto;
-			gap: 1rem;
-			border: 3px white solid;
-			
-			
-			
-		}
-		menu {
-			align-items: center;
-			display: flex;
-			justify-content: center;
-			gap: 1rem;
-			
-		}
-		menu a {
-            background-color: #18542c;
-			padding: 1rem;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 120px;
-			height: 35px;
-			border-bottom: white solid;
-			color: white;
-			text-decoration: none;
-		}
-		menu a:hover{
-			border-bottom: yellow solid;
-			color: black;
-		}
-			div.parent {
-				border: 3px solid white;
-		        border-radius: 8px;
-		        margin: 2rem auto;
-				height: 250px;
-				width: 800px;
-				background-color: #18542c;
-				display: flex;
-				gap: 1.5rem;
-				align-items: center;
-				
-				
-	}
-	div.child1 {
-		align-items: center;
-		justify-content: center;
-		text-align: center;
-		background-color: white;
-		display: flex;
-		text-align: center;
-		gap: 1rem;
-		width: 800px;
-		padding: 1rem;
-		margin: 0 auto;
-	}
-	div.child2 {
-		align-items: center;
-		justify-content: center;
-		text-align: center;
-		background-color: white;
-		display: flex;
-		text-align: center;
-		gap: 1rem;
-		width: 800px;
-		padding: 1rem;
-		margin: 0 auto;
+    background-color: #17a053;
+}
+div.logo {
+background: url(images/spriteweb.png) no-repeat;
+background-position: -10px -400px;
+margin: 0 auto;
+height: 190px;
+width: 190px;
+}
+menu {
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    
+}
+menu a {
+    background-color: #18542c;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 7px solid white;
+    color: white;
+    width: 200px;
+    font-family: serif;
+    font-size: large;
+    text-decoration: none;
 
-	}
-	div.child3 {
-		align-items: center;
-		justify-content: center;
-		text-align: center;
-		background-color: white;
-		display: flex;
-		text-align: center;
-		gap: 1rem;
-		width: 800px;
-		padding: 1rem;
-		margin: 0 auto;
-	}
+}
+menu a:hover {
+    color: yellow;
+    background-color: black;
+    border-bottom: 7px solid yellow;
+
+}
+div.parent {
+    width: 1250px;
+    height: 300px;
+    background-color: #18542c;
+    margin: auto;
+    display: flex;
+    border: 3px solid white;
+   
+}
+div.child1 {
+  
+    background-color: white;
+    width: 680px;
+    height: 200px;
+    margin: 60px;
+    background: url(images/spriteweb.png);
+    background-position: -1300px -6px;
+    border: 3px solid white;
+    cursor: pointer;
+}
+div.child2 {
+    width: 680px;
+    height: 200px;
+    margin: 60px;
+    background: url(images/spriteweb.png);
+    background-position: -1300px -6px;
+    border: 3px solid white;
+
+}
+div.child3 {
+    width: 680px;
+    height: 200px;
+    margin: 60px;
+    background: url(images/spriteweb.png);
+    background-position: -1300px -6px;
+    border: 3px solid white;
+
+}
+div.childchild1 {
+    background-color: hsl(0, 0%, 100%, 0.4);
+    height: 60px;
+    width: 290px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 2rem;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 800;
+    cursor: pointer;
+
+}
+div.childchild2 {
+    background-color: hsl(0, 0%, 100%, 0.4);
+    height: 60px;
+    width: 290px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 2rem;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 800;
+    cursor: pointer;
+}
+div.childchild3 {
+    background-color: hsl(0, 0%, 100%, 0.4);
+    height: 60px;
+    width: 290px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 2rem;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 800;
+    cursor: pointer;
+}
+div.childchild1:hover {
+    background-color: hsl(0, 0%, 100%, 0.7);    
+}
+div.childchild2:hover {
+    background-color: hsl(0, 0%, 100%, 0.7);
+}
+div.childchild3:hover {
+    background-color: hsl(0, 0%, 100%, 0.7);
+}
+section {
+    width: 1250px;
+    height: px;
+    background-color: #18542c;
+    margin: auto;
+    margin: auto;
+    padding: 1.5rem;
+   
+}
+div.box1 {
+    width: 1230px;
+    height: 300px;
+    background-color: white;
+    margin: auto;
+    display: flex;
+    
+
+}
+div.box2 {
+    width: 1230px;
+    height: 300px;
+    background-color: white;
+    margin: auto;
+    display: flex;
+}
+div.box3 {
+    width: 1230px;
+    height: 300px;
+    background-color: white;
+    margin: auto;
+    display: flex;
+}
+p {
+    font-weight: 800;
+    font-size: larger;
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 3rem;
+}
+footer {
+    background-color: white;
+    height: 200px;
+    width: 1290px;
+    margin: auto;
+    display: flex;
+    gap: 6rem;
+}
+footer.footer1 {
+    background-color: white;
+    height:50px;
+    width: 1290px;
+    margin: auto;
+    display: flex;
+}
+footer img {
+    width: 200px;
+    height: 150px;
+    margin: auto;
+}
+
+div.footer {
+    padding: 4px;
+    font-weight: 600;
+    font-size: larger;
+    font-family: Arial, Helvetica, sans-serif; 
+    text-decoration: none;
+   width: 150px;
+   height: 20px;
+   margin-bottom: auto;
+   margin-left: 1.2rem;
+   cursor: pointer;
+}
+
+div.footer:hover {
+    border-bottom: 7px solid green;
+}
+p:hover {
+    color: #18542c;
+    cursor: pointer;
+}
+div.lata  {
+    background: url(images/Captura\ de\ pantalla\ 2024-08-22\ 184308.png) no-repeat;
+    height: 165px;
+    width: 100px;
+    margin-top: 3rem;
+}
+div.circle {
+    background: url(images/Captura\ de\ pantalla\ 2024-08-22\ 184502.png) no-repeat;
+    width: 90px;
+    height:80px;
+    margin-top: 3rem;
+    border: 2px solid white;
+
+}
 </style>
 <body>
-	<main>
-		<div class="logo"></div>
-		<menu>
-			<a href="">INICIO</a>
-			<a href="">NOSOTROS</a>
-			<a href="">PORTAFOLIO</a>
-			<a href="">SERVIVCIOS </a>
-			<a href="">CONTACTO</a>
-			</div>
-		</menu>
-		<section>
-		<div class="parent">
-			<div class="sprite2">
-				<div class="child1">sprite 01</div>
-			</div>
-			<div class="sprite2">
-				<div class="child2">sprite 02</div>
-			</div>
-			<div class="sprite2">
-				<div class="child3">sprite 03</div>
-			</div>
-		</div>
-	</section>
-	</main>
+    <main>
+            <div class="logo"></div>
+     
+   <menu>
+        <a href="">Inicio</a>
+        <a href="">Nosotros</a>
+        <a href="">Portafolio</a>
+        <a href="">Servicios</a>
+        <a href="">Contacto</a>
+ </menu>
+      <br>
+      <br>
+
+         <div class="parent">
+            <div class="child1">
+                <div class="childchild1"><strong>Sprite 1</strong></div>
+            </div>
+            <div class="child2">
+                <div class="childchild2"><strong>Sprite 2</strong></div>
+            </div>
+            <div class="child3">
+                <div class="childchild3"><strong>Sprite 3</strong>
+
+                </div>
+            </div>
+         </div> 
+         <br>
+         <br>
+        <section>
+            <div class="box1">
+                <aside>
+                    <div class="circle"></div>
+                </aside>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam mollitia sunt est molestiae consequatur dolorem. Tenetur nihil sequi, quibusdam labore consectetur ipsa quisquam aperiam, unde velit amet repellat suscipit mollitia quia magnam totam delectus. Quis reprehenderit vero voluptatem velit, aut, dolorem quia eaque sapiente rem aspernatur nulla ducimus, a esse?</p>
+                <aside>
+                    <div class="lata"></div>
+                </aside>
+            </div>
+            <br>
+            <div class="box2">
+                <aside>
+                    <div class="circle"></div>
+                </aside>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam mollitia sunt est molestiae consequatur dolorem. Tenetur nihil sequi, quibusdam labore consectetur ipsa quisquam aperiam, unde velit amet repellat suscipit mollitia quia magnam totam delectus. Quis reprehenderit vero voluptatem velit, aut, dolorem quia eaque sapiente rem aspernatur nulla ducimus, a esse?</p>
+                <aside>
+                    <div class="lata"></div>
+                </aside>
+            </div>
+            <br>
+            <div class="box3">
+                <aside>
+                    <div class="circle"></div>
+                </aside>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam mollitia sunt est molestiae consequatur dolorem. Tenetur nihil sequi, quibusdam labore consectetur ipsa quisquam aperiam, unde velit amet repellat suscipit mollitia quia magnam totam delectus. Quis reprehenderit vero voluptatem velit, aut, dolorem quia eaque sapiente rem aspernatur nulla ducimus, a esse?</p>
+                <aside>
+                    <div class="lata"></div>
+                </aside>
+            </div>
+            </section>
+                <br>
+                <br>
+                    <footer> 
+                        <img src="images/Captura de pantalla 2024-08-22 184502.png" alt="">
+                    </footer>
+                   <footer class="footer1">
+                            <div class="footer">INICIO</div>
+                            <div class="footer">NOSOTROS</div>
+                            <div class="footer">PORTAFOLIO</div>
+                            <div class="footer">SERVICIOS</div>
+                            <div class="footer">CONTACTO</div>
+                   </footer>
+                   
+   </main>
 </body>
 </html>
