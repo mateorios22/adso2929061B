@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>06 - type-objects</title>
 <link rel="stylesheet" href="../css/styles.css">
+<style>
+    section ul.objects {
+        list-style: none;
+        padding: 0;
+        li {
+            border-radius: 0.4rem;
+            padding: 0.2rem;
+            background-color: #fff9;
+            margin-bottom: 0.4rem;
+            b {
+                font-weight: 600;
+                color: #928531;
+            }
+        }
+    }
+</style>
 </head>
 <body class="javascript">
     <nav>
@@ -13,3 +29,43 @@
         </a>
     </nav>
     <main>
+        <header>
+            <h1>06 - Types objects</h1>
+            <p>
+                Understand and work with different object types.
+            </p>
+        </header>
+        <section>
+            <ul class="objects"></ul>
+        </section>
+    </main>
+    <script>
+        
+        const objects = document.querySelector('.objects')
+
+        
+        let objString  = new String
+        objects.innerHTML = `<li> <b>Type:</b> ${objString.constructor.name} </li>`
+
+        
+        let objNumber  = new Number
+        objects.innerHTML += `<li> <b>Type:</b> ${objNumber.constructor.name} </li>`
+
+        
+        let objBoolean  = new Boolean
+        objects.innerHTML += `<li> <b>Type:</b> ${objBoolean.constructor.name} </li>`
+
+        
+        let objArray  = new Array
+        objects.innerHTML += `<li> <b>Type:</b> ${objArray.constructor.name} </li>`
+
+        
+        let objDate  = new Date
+        objects.innerHTML += `<li> <b>Type:</b> ${objDate.constructor.name} </li>`
+
+        //Object Object
+        let objObject  = new Object
+        objects.innerHTML += `<li> <b>Type:</b> ${objObject.constructor.name} </li>`
+    </script>
+</body>
+</html>
