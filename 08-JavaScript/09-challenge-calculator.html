@@ -3,8 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>09-challenge-calculator</title>
+    <title>09 - challenge calculator</title>
 <link rel="stylesheet" href="../css/styles.css">
+<style>
+        :root {
+            --bg-gradient-1: #ffef0a;
+            --bg-gradient-2: #ffa938;
+            --calc-bg: rgba(240, 190, 96, 0.95);
+            --display-bg: #ffe048;
+            --button-bg: #ffffff;
+            --operator-bg: #ffe048;
+            --equals-bg: #fdd629;
+            --special-bg: #ffe048;
+            --text-color: #e3edf0;
+            --neon-glow: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --bg-gradient-1: #000000;
+            --bg-gradient-2: #5800cc;
+            --calc-bg: rgba(0, 0, 0, 0.9);
+            --display-bg: #1a1a1a;
+            --button-bg: #2d3436;
+            --operator-bg: #000000;
+            --equals-bg: #000000;
+            --special-bg: #000000;
+            --text-color: #ffffff;
+            --neon-glow: #5300b3;
+        }
+
+        body {
+            background: linear-gradient(45deg, var(--bg-gradient-1), var(--bg-gradient-2));
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .calculator {
+            background: var(--calc-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.2);
+            width: 350px;
+            left: 11px;
+            border: 2px solid rgba(255,255,255,0.1);
+            position: relative;
+            transform-style: preserve-3d;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        
+
+        .display {
+            background: var(--display-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
+        }
+
+        .display::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent, 
+                rgba(170, 112, 112, 0.1),
+                transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(45deg) translate(-50%, -50%); }
+            100% { transform: rotate(45deg) translate(150%, 150%); }
+        }
+
+        #previous {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.3em;
+            min-height: 1.5em;
+            text-shadow: 0 0 5px var(--neon-glow);
+        }
+
+        #current {
+            color: white;
+            font-size: 3.5em;
+            font-weight: 700;
+            text-shadow: 0 0 10px var(--neon-glow);
+            letter-spacing: -2px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        button {
+            background: var(--button-bg);
+            border: none;
+            border-radius: 15px;
+            padding: 20px;
+            font-size: 1.4em;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: perspective(500px) translateZ(0);
+        }
+
+        button:hover {
+            transform: perspective(500px) translateZ(20px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        button:active {
+            transform: perspective(500px) translateZ(0) scale(0.95);
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255,255,255,0.15);
+            transform: translate(-50%, -50%) rotate(45deg);
+            animation: ripple 1s linear infinite;
+            opacity: 0;
+        }
+
+        button:active::after {
+            opacity: 1;
+            animation: ripple 0.6s linear;
+        }
+
+        @keyframes ripple {
+            0% { width: 0; height: 0; opacity: 1; }
+            100% { width: 300%; height: 300%; opacity: 0; }
+        }
+
+        .operator {
+            background: var(--operator-bg);
+            color: white;
+        }
+
+        .equals {
+            background: var(--equals-bg);
+            color: white;
+            grid-row: span 2;
+        }
+
+        .special {
+            background: var(--special-bg);
+            color: var(--text-color);
+        }
+
+        .theme-toggle {
+    position: absolute;
+    top: 10px;
+    left: 8px;
+    background: var(--operator-bg);
+    border: 2px solid var(--neon-glow);
+    padding: 15px;
+    border-radius: 50%;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 20px var(--neon-glow), 
+                0 0 30px rgba(78, 205, 196, 0.3) inset;
+    transition: all 0.3s ease;
+    font-size: 1.4em;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+        .theme-toggle:hover {
+    transform: rotate(180deg) scale(1.2);
+    box-shadow: 0 0 30px var(--neon-glow), 
+                0 0 40px rgba(78, 205, 196, 0.5) inset;
+}
+[data-theme="dark"] .theme-toggle {
+    background: var(--equals-bg);
+    border-color: var(--special-bg);
+    box-shadow: 0 0 20px var(--special-bg), 
+                0 0 30px rgba(168, 216, 234, 0.3) inset;
+}
+.theme-toggle::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: ring 3s linear infinite;
+}
+@keyframes ring {
+    0% { box-shadow: 0 0 0 0 var(--neon-glow); }
+    100% { box-shadow: 0 0 0 15px rgba(78, 205, 196, 0); }
+}
+
+        .calculator::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 27px;
+            z-index: -1;
+            background: linear-gradient(45deg, 
+                var(--bg-gradient-1),
+                var(--bg-gradient-2),
+                var(--bg-gradient-1));
+            animation: neonGlow 2s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes neonGlow {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(90deg); }
+        }
+
+        .display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                transparent 50%,
+                rgba(0,0,0,0.1) 50%
+            );
+            background-size: 100% 4px;
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+</style>
 </head>
 <body class="javascript">
     <nav>
@@ -15,16 +279,184 @@
     <main>
         <main>
             <header>
-                <h1>00 - Template</h1>
+                <h1>09 - Challenge calculator</h1>
                 <p>
-                    Lorem
+                    calculator
                 </p>
             </header>
             <section>
-                       </section>
+        <div class="calculator">
+        <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+        <div class="display">
+          <div id="previous"></div>
+          <div id="current">0</div>
+        </div>
+        <div class="buttons">
+          <button class="special" onclick="clearDisplay()">C</button>
+          <button class="special" onclick="toggleSign()">±</button>
+          <button class="special" onclick="percentage()">%</button>
+          <button class="operator" onclick="appendOperator('÷')">÷</button>
+
+          <button onclick="appendNumber('7')">7</button>
+          <button onclick="appendNumber('8')">8</button>
+          <button onclick="appendNumber('9')">9</button>
+          <button class="operator" onclick="appendOperator('×')">×</button>
+
+          <button onclick="appendNumber('4')">4</button>
+          <button onclick="appendNumber('5')">5</button>
+          <button onclick="appendNumber('6')">6</button>
+          <button class="operator" onclick="appendOperator('-')">-</button>
+
+          <button onclick="appendNumber('1')">1</button>
+          <button onclick="appendNumber('2')">2</button>
+          <button onclick="appendNumber('3')">3</button>
+          <button class="operator" onclick="appendOperator('+')">+</button>
+
+          <button onclick="appendNumber('0')" style="grid-column: span 2;">0</button>
+          <button onclick="appendDecimal()">.</button>
+          <button class="equals" onclick="calculate()">=</button>
+        </div>
+      </div>
+            </section>
         </main>
         <script>
+
+    let currentNumber = '0';
+        let previousNumber = '';
+        let operation = null;
+
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const themeToggle = document.querySelector('.theme-toggle');
             
+            if(currentTheme === 'dark') {
+                body.removeAttribute('data-theme');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if(savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+            } else {
+                themeToggle.textContent = '🌙';
+            }
+        }
+
+        function updateDisplay() {
+            document.getElementById('current').textContent = currentNumber;
+            document.getElementById('previous').textContent = 
+                `${previousNumber} ${''|| operation}`;
+        }
+
+        function appendNumber(num) {
+            if (currentNumber === '0' && num !== '.') {
+                currentNumber = num;
+            } else {
+                currentNumber += num;
+            }
+            updateDisplay();
+        }
+
+        function appendDecimal() {
+            if (!currentNumber.includes('.')) {
+                currentNumber += '.';
+                updateDisplay();
+            }
+        }
+
+        function toggleSign() {
+            currentNumber = (parseFloat(currentNumber) * -1).toString();
+            updateDisplay();
+        }
+
+        function percentage() {
+            currentNumber = (parseFloat(currentNumber) / 100).toString();
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            currentNumber = '0';
+            previousNumber = '';
+            operation = null;
+            updateDisplay();
+        }
+
+        function appendOperator(op) {
+            if (operation !== null) calculate();
+            previousNumber = currentNumber;
+            operation = op;
+            currentNumber = '0';
+            updateDisplay();
+        }
+
+        function calculate() {
+            let computation;
+            const prev = parseFloat(previousNumber);
+            const current = parseFloat(currentNumber);
+            
+            if (isNaN(prev)) return;
+
+            switch(operation) {
+                case '+': computation = prev + current; break;
+                case '-': computation = prev - current; break;
+                case '×': computation = prev * current; break;
+                case '÷': 
+                    computation = current === 0 ? 'Error' : prev / current; 
+                    break;
+                default: return;
+            }
+            currentNumber = computation.toLocaleString('es-ES')
+            operation = null;
+            previousNumber = '';
+            updateDisplay();
+        }
+
+        loadTheme();
+        
+        const calculator = document.querySelector('.calculator');
+        for (let i = 0; i < 15; i++) {
+            const paw = document.createElement('div');
+            paw.className = 'paw-print';
+            paw.style.top = `${Math.random() * 100}%`;
+            paw.style.left = `${Math.random() * 100}%`;
+            paw.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.5 + Math.random() * 0.5})`;
+            paw.style.opacity = 0.05 + Math.random() * 0.1;
+            calculator.appendChild(paw);
+        }
+         document.addEventListener('keydown', e => {
+      const key = e.key;
+      if (key >= '0' && key <= '9') {
+        appendNumber(key);
+      } else if (key === '.') {
+        appendDecimal();
+      } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+
+        const op = key === '*' ? '×' : (key === '/' ? '÷' : key);
+        appendOperator(op);
+      } else if (key === 'Enter' || key === '=') {
+        e.preventDefault();  
+        calculate();
+      } else if (key === 'Backspace' || key.toLowerCase() === 'c' || key === 'Escape') {
+        clearDisplay();
+      } else if (key === '%') {
+        percentage();
+      } else if (key === 'n') {
+        // 'n' toggle sign ±
+        toggleSign();
+      }
+    });
+
         </script>
     </body>
     </html>
