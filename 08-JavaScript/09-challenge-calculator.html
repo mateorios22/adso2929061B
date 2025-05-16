@@ -62,8 +62,6 @@
             animation: float 4s ease-in-out infinite;
         }
 
-        
-
         .display {
             background: var(--display-bg);
             border-radius: 15px;
@@ -178,54 +176,54 @@
         }
 
         .theme-toggle {
-    position: absolute;
-    top: 10px;
-    left: 8px;
-    background: var(--operator-bg);
-    border: 2px solid var(--neon-glow);
-    padding: 15px;
-    border-radius: 50%;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 0 20px var(--neon-glow), 
-                0 0 30px rgba(78, 205, 196, 0.3) inset;
-    transition: all 0.3s ease;
-    font-size: 1.4em;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    animation: pulse 2s infinite;
-}
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-}
+            position: absolute;
+            top: 10px;
+            left: 8px;
+            background: var(--operator-bg);
+            border: 2px solid var(--neon-glow);
+            padding: 15px;
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 20px var(--neon-glow), 
+                        0 0 30px rgba(78, 205, 196, 0.3) inset;
+            transition: all 0.3s ease;
+            font-size: 1.4em;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
 
         .theme-toggle:hover {
-    transform: rotate(180deg) scale(1.2);
-    box-shadow: 0 0 30px var(--neon-glow), 
-                0 0 40px rgba(78, 205, 196, 0.5) inset;
-}
-[data-theme="dark"] .theme-toggle {
-    background: var(--equals-bg);
-    border-color: var(--special-bg);
-    box-shadow: 0 0 20px var(--special-bg), 
-                0 0 30px rgba(168, 216, 234, 0.3) inset;
-}
-.theme-toggle::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    animation: ring 3s linear infinite;
-}
-@keyframes ring {
-    0% { box-shadow: 0 0 0 0 var(--neon-glow); }
-    100% { box-shadow: 0 0 0 15px rgba(78, 205, 196, 0); }
-}
+            transform: rotate(180deg) scale(1.2);
+            box-shadow: 0 0 30px var(--neon-glow), 
+                        0 0 40px rgba(78, 205, 196, 0.5) inset;
+        }
+        [data-theme="dark"] .theme-toggle {
+            background: var(--equals-bg);
+            border-color: var(--special-bg);
+            box-shadow: 0 0 20px var(--special-bg), 
+                        0 0 30px rgba(168, 216, 234, 0.3) inset;
+        }
+        .theme-toggle::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: ring 3s linear infinite;
+        }
+        @keyframes ring {
+            0% { box-shadow: 0 0 0 0 var(--neon-glow); }
+            100% { box-shadow: 0 0 0 15px rgba(78, 205, 196, 0); }
+        }
 
         .calculator::before {
             content: '';
@@ -293,7 +291,7 @@
         </div>
         <div class="buttons">
           <button class="special" onclick="clearDisplay()">C</button>
-          <button class="special" onclick="toggleSign()">±</button>
+          <button class="special" onclick="deleteLastChar()"><</button>
           <button class="special" onclick="percentage()">%</button>
           <button class="operator" onclick="appendOperator('÷')">÷</button>
 
@@ -314,14 +312,14 @@
 
           <button onclick="appendNumber('0')" style="grid-column: span 2;">0</button>
           <button onclick="appendDecimal()">.</button>
+          <button class="operator" onclick="appendOperator('^')">^</button>
           <button class="equals" onclick="calculate()">=</button>
         </div>
       </div>
             </section>
         </main>
         <script>
-
-    let currentNumber = '0';
+        let currentNumber = '0';
         let previousNumber = '';
         let operation = null;
 
@@ -356,7 +354,7 @@
         function updateDisplay() {
             document.getElementById('current').textContent = currentNumber;
             document.getElementById('previous').textContent = 
-                `${previousNumber} ${'' || operation}`;
+                `${previousNumber} ${operation || ''}`;
         }
 
         function appendNumber(num) {
@@ -392,6 +390,15 @@
             updateDisplay();
         }
 
+        function deleteLastChar() {
+            if (currentNumber.length === 1) {
+                currentNumber = '0';
+            } else {
+                currentNumber = currentNumber.slice(0, -1);
+            }
+            updateDisplay();
+        }
+
         function appendOperator(op) {
             if (operation !== null) calculate();
             previousNumber = currentNumber;
@@ -414,9 +421,10 @@
                 case '÷': 
                     computation = current === 0 ? 'Error' : prev / current; 
                     break;
+                case '^': computation = Math.pow(prev, current); break;
                 default: return;
             }
-            currentNumber = computation.toLocaleString('es-ES')
+            currentNumber = computation.toString();
             operation = null;
             previousNumber = '';
             updateDisplay();
@@ -434,29 +442,31 @@
             paw.style.opacity = 0.05 + Math.random() * 0.1;
             calculator.appendChild(paw);
         }
-         document.addEventListener('keydown', e => {
-      const key = e.key;
-      if (key >= '0' && key <= '9') {
-        appendNumber(key);
-      } else if (key === '.') {
-        appendDecimal();
-      } else if (key === '+' || key === '-' || key === '*' || key === '/') {
-
-        const op = key === '*' ? '×' : (key === '/' ? '÷' : key);
-        appendOperator(op);
-      } else if (key === 'Enter' || key === '=') {
-        e.preventDefault();  
-        calculate();
-      } else if (key === 'Backspace' || key.toLowerCase() === 'c' || key === 'Escape') {
-        clearDisplay();
-      } else if (key === '%') {
-        percentage();
-      } else if (key === 'n') {
-        // 'n' toggle sign ±
-        toggleSign();
-      }
-    });
-
+        
+        document.addEventListener('keydown', e => {
+            const key = e.key;
+            if (key >= '0' && key <= '9') {
+                appendNumber(key);
+            } else if (key === '.') {
+                appendDecimal();
+            } else if (key === '+' || key === '-' || key === '*' || key === '/' || key === '^') {
+                const op = key === '*' ? '×' : (key === '/' ? '÷' : key);
+                appendOperator(op);
+            } else if (key === 'Enter' || key === '=') {
+                e.preventDefault();  
+                calculate();
+            } else if (key === 'Backspace' || key.toLowerCase() === 'c' || key === 'Escape') {
+                if (key === 'Backspace') {
+                    deleteLastChar();
+                } else {
+                    clearDisplay();
+                }
+            } else if (key === '%') {
+                percentage();
+            } else if (key === 'n') {
+                toggleSign();
+            }
+        });
         </script>
     </body>
-    </html>
+</html>
