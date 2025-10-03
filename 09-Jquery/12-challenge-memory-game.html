@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12 - challenge-memory-game</title>
+<link rel="stylesheet" href="../css/styles.css">
+
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap');
+    
+    body {
+        font-family: "Cinzel", serif;
+        font-weight: 400;
+        background: #000000;
+        margin: 0;
+        padding: 0;
+        color: #ffffff;
+    }
+
+    section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 460px !important;
+        height: 840px !important;
+        background-color: transparent !important;
+    }
+
+    .game-container {
+        background-image: url("images/backgroundgodofwar2.jpg");
+        background-size: cover;
+        background-position: center;
+        border-radius: 0px;
+        width: 460px;
+        height: 840px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px;
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
+        border: 2px solid #da0000;
+    }
+
+    .game-stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 20px 30px;
+        background: rgba(26, 26, 26, 0.95);
+        border-bottom: 3px solid #8B4513;
+        margin-bottom: 0px;
+        position: relative;
+    }
+
+    .stat-item {
+        text-align: center;
+        flex: 1;
+    }
+
+    .stat-value {
+        font-size: 28px;
+        font-weight: bold;
+        display: block;
+        color: #D4AF37;
+        text-shadow: 0px 0px 10px rgba(212, 175, 55, 0.5);
+        font-family: "Cinzel", serif;
+    }
+
+    .stat-label {
+        font-size: 12px;
+        color: #8B4513;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+        margin-top: 5px;
+        font-family: "Cinzel", serif;
+    }
+
+    .game-board {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 0px;
+        padding: 40px 30px;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        align-content: center;
+        height: 540px;
+        background: 
+            radial-gradient(circle at 20% 50%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(180, 30, 30, 0.1) 0%, transparent 50%);
+    }
+
+    .memory-card {
+        width: 110px;
+        height: 130px;
+        border-radius: 12px;
+        cursor: pointer;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 3px solid #8B4513;
+        background: linear-gradient(145deg, #1a0f08, #2c1c10);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+    }
+
+    .memory-card:hover {
+        transform: translateY(-5px) scale(1.02);
+        border-color: #D4AF37;
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+    }
+
+    .memory-card.flipped {
+        transform: rotateY(180deg);
+    }
+
+    .memory-card.matched {
+        animation: matchSuccess 0.6s ease-in-out;
+        border-color: #D4AF37;
+        box-shadow: 0 0 30px #D4AF37;
+    }
+
+    .card-face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .card-front {
+        background: linear-gradient(135deg, #5D4037 0%, #8B4513 100%);
+        position: relative;
+    }
+
+    .card-front::before {
+        content: "ᚠ";
+        font-size: 42px;
+        color: rgba(212, 175, 55, 0.4);
+        font-family: "Cinzel", serif;
+        position: absolute;
+    }
+
+    .card-back {
+        transform: rotateY(180deg);
+        background: linear-gradient(135deg, #2c1c10 0%, #1a0f08 100%);
+        padding: 8px;
+        border: 2px solid #D4AF37;
+    }
+
+    .card-back img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 5px;
+        filter: brightness(1.1) contrast(1.1);
+    }
+
+    .game-controls {
+        text-align: center;
+        width: 100%;
+        margin-top: 0px;
+        padding: 25px 30px;
+        background: rgba(26, 26, 26, 0.95);
+        border-top: 3px solid #8B4513;
+    }
+
+    .btn {
+        background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+        color: #D4AF37;
+        border: 2px solid #8B4513;
+        padding: 14px 35px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-family: "Cinzel", serif;
+        font-weight: 700;
+        margin: 0;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(139, 0, 0, 0.6);
+        background: linear-gradient(135deg, #B22222 0%, #8B0000 100%);
+        border-color: #D4AF37;
+    }
+
+    @keyframes matchSuccess {
+        0% {
+            transform: scale(1) rotateY(180deg);
+        }
+        50% {
+            transform: scale(1.15) rotateY(180deg);
+            box-shadow: 0 0 40px #D4AF37;
+        }
+        100% {
+            transform: scale(1) rotateY(180deg);
+        }
+    }
+
+    @keyframes shake {
+        0%, 100% {
+            transform: translateX(0) rotateY(180deg);
+        }
+        25% {
+            transform: translateX(-8px) rotateY(180deg);
+        }
+        75% {
+            transform: translateX(8px) rotateY(180deg);
+        }
+    }
+
+    .memory-card.no-match.flipped {
+        animation: shake 0.6s ease-in-out;
+        border-color: #8B0000;
+    }
+
+    .message-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .message-overlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .message-popup {
+        background: linear-gradient(135deg, #2c1c10 0%, #1a0f08 100%);
+        border: 4px solid #8B4513;
+        border-radius: 15px;
+        padding: 0;
+        max-width: 380px;
+        width: 85%;
+        transform: scale(0.8);
+        transition: transform 0.3s ease;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+        overflow: hidden;
+    }
+
+    .message-overlay.show .message-popup {
+        transform: scale(1);
+    }
+
+    .message-content {
+        padding: 35px 30px;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+    .message-content h2 {
+        color: #D4AF37;
+        font-size: 32px;
+        margin: 0 0 20px 0;
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        font-family: "Cinzel", serif;
+    }
+
+    .message-content p {
+        color: #B8860B;
+        font-size: 18px;
+        line-height: 1.6;
+        margin: 0 0 30px 0;
+        font-family: "Cinzel", serif;
+    }
+
+    .message-btn {
+        background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+        color: #D4AF37;
+        border: 2px solid #8B4513;
+        padding: 14px 35px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-family: "Cinzel", serif;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .message-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(139, 0, 0, 0.6);
+        border-color: #D4AF37;
+    }
+
+    .message-popup.success .message-content h2 {
+        color: #D4AF37;
+    }
+
+    .message-popup.success .message-btn {
+        background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+    }
+
+    /* Efectos adicionales para coincidir con Figma */
+    .game-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            linear-gradient(45deg, transparent 65%, rgba(139, 69, 19, 0.1) 100%),
+            linear-gradient(-45deg, transparent 65%, rgba(180, 30, 30, 0.1) 100%);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .game-stats, .game-board, .game-controls {
+        position: relative;
+        z-index: 2;
+    }
+</style>
+</head>
+<body class="jquery">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <main>
+            <header>
+                <h1>12 - challenge-memory-game</h1>
+                <p>
+                </p>
+            </header>
+            <section>
+                  <div class="game-container">
+                <div class="game-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="moves-count">0</span>
+                        <span class="stat-label">Movimientos</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="pairs-found">0/6</span>
+                        <span class="stat-label">Parejas</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="timer">00:00</span>
+                        <span class="stat-label">Tiempo</span>
+                    </div>
+                </div>
+
+                <div class="game-board" id="game-board"></div>
+
+                <div class="game-controls">
+                    <button class="btn" id="restart-btn">Reiniciar</button>
+                </div>
+            </div>
+            </section>
+             <div id="game-message-overlay" class="message-overlay">
+            <div id="game-message" class="message-popup">
+                <div class="message-content">
+                    <h2 id="message-title"></h2>
+                    <p id="message-text"></p>
+                    <button class="btn message-btn" id="close-message">
+                        Reiniciar
+                    </button>
+                </div>
+            </div>
+        </div>
+        </main>
+       <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+               let primeraCartaSeleccionada = null;
+            let segundaCartaSeleccionada = null;
+            let puedeHacerClick = true;
+            let numeroDeMovimientos = 0;
+            let parejasEncontradas = 0;
+            let totalDeParejasParaGanar = 6;
+            let juegoHaComenzado = false;
+            let tiempoDeInicio = null;
+            let intervaloDeTiempo = null;
+
+         
+             let imagenesDeCartas = [
+            "deimos1.jpg", "deimos2.jpg",
+            "kratos1.jpg", "kratos2.jpg", 
+            "zeus1.jpg", "zeus2.jpg",
+            "atreus1.jpg", "atreus2.jpg",
+            "thor1.jpg", "thor2.jpg",
+            "poseidon1.jpg", "poseidon2.jpg"
+        ];
+
+    
+            function mezclarCartas(cartas) {
+                let cartasMezcladas = $.map(cartas, function (c) {
+                    return c;
+                }); 
+                for (let j = cartasMezcladas.length - 1; j > 0; j--) {
+                    let numeroAleatorio = Math.floor(Math.random() * (j + 1));
+                    let temp = cartasMezcladas[j];
+                    cartasMezcladas[j] = cartasMezcladas[numeroAleatorio];
+                    cartasMezcladas[numeroAleatorio] = temp;
+                }
+                return cartasMezcladas;
+            }
+
+       
+            function crearTablero() {
+                let cartasMezcladas = mezclarCartas(imagenesDeCartas);
+                let tableroDeJuego = $("#game-board");
+                tableroDeJuego.empty();
+
+                $.each(cartasMezcladas, function (i, carta) {
+                    let $carta = $(
+                        '<div class="memory-card flipped" data-image="' +
+                        carta +
+                        '">\
+                        <div class="card-face card-front"></div>\
+                        <div class="card-face card-back">\
+                             <img src="images/godofwarcharacter/' +
+                        carta +
+                        '" alt="godofwarcharacter">\
+                        </div>\
+                    </div>'
+                    );
+                    tableroDeJuego.append($carta);
+                });
+
+                setTimeout(function () {
+                    $(".memory-card").removeClass("flipped");
+                    puedeHacerClick = true;
+                }, 4000);
+            }
+
+            function voltearCarta($carta) {
+                if (!puedeHacerClick) return;
+                if ($carta.hasClass("flipped")) return;
+                if ($carta.hasClass("matched")) return;
+
+                if (!juegoHaComenzado) {
+                    empezarJuego();
+                }
+
+                $carta.addClass("flipped");
+
+                if (primeraCartaSeleccionada == null) {
+                    primeraCartaSeleccionada = $carta;
+                } else {
+                    segundaCartaSeleccionada = $carta;
+                    numeroDeMovimientos++;
+                    actualizarEstadisticas();
+                    puedeHacerClick = false;
+
+                    setTimeout(verificarSiCoinciden, 600);
+                }
+            }
+
+            function verificarSiCoinciden() {
+                let imagenPrimeraCarta = primeraCartaSeleccionada.data("image");
+                let imagenSegundaCarta = segundaCartaSeleccionada.data("image");
+
+               
+                let colorPrimeraCarta = imagenPrimeraCarta
+                    .replace("1.jpg", "")
+                    .replace("2.jpg", "");
+                let colorSegundaCarta = imagenSegundaCarta
+                    .replace("1.jpg", "")
+                    .replace("2.jpg", "");
+
+                if (
+                    colorPrimeraCarta == colorSegundaCarta &&
+                    imagenPrimeraCarta != imagenSegundaCarta
+                ) {
+                    primeraCartaSeleccionada.addClass("matched");
+                    segundaCartaSeleccionada.addClass("matched");
+                    parejasEncontradas++;
+                    actualizarEstadisticas();
+
+                    if (parejasEncontradas == totalDeParejasParaGanar) {
+                        setTimeout(terminarJuego, 1000);
+                    }
+                } else {
+                    primeraCartaSeleccionada.addClass("no-match");
+                    segundaCartaSeleccionada.addClass("no-match");
+
+                    setTimeout(function () {
+                        primeraCartaSeleccionada.removeClass("flipped no-match");
+                        segundaCartaSeleccionada.removeClass("flipped no-match");
+                    }, 1200);
+                }
+
+                setTimeout(function () {
+                    primeraCartaSeleccionada = null;
+                    segundaCartaSeleccionada = null;
+                    puedeHacerClick = true;
+                }, 1200);
+            }
+
+            function mostrarMensaje(texto, tipo) {
+                let $overlay = $("#game-message-overlay");
+                let $popup = $("#game-message");
+                let $titulo = $("#message-title");
+                let $texto = $("#message-text");
+
+                if (tipo == "success") {
+                    $titulo.text("¡Felicidades!");
+                    $popup.addClass("success");
+                } else {
+                    $titulo.text("Información");
+                    $popup.removeClass("success");
+                }
+
+                $texto.text(texto);
+                $overlay.addClass("show");
+            }
+
+            function cerrarMensaje() {
+                $("#game-message-overlay").removeClass("show");
+                $("#game-message").removeClass("success");
+            }
+
+            function actualizarEstadisticas() {
+                $("#moves-count").text(numeroDeMovimientos);
+                $("#pairs-found").text(
+                    parejasEncontradas + "/" + totalDeParejasParaGanar
+                );
+            }
+
+            function empezarJuego() {
+                juegoHaComenzado = true;
+                tiempoDeInicio = $.now();
+                empezarTemporizador();
+            }
+
+            function empezarTemporizador() {
+                intervaloDeTiempo = setInterval(function () {
+                    let tiempoActual = $.now();
+                    let tiempoTranscurrido = tiempoActual - tiempoDeInicio;
+                    let minutos = Math.floor(tiempoTranscurrido / 60000);
+                    let segundos = Math.floor((tiempoTranscurrido % 60000) / 1000);
+
+                    let minutosTexto = (minutos < 10 ? "0" : "") + minutos;
+                    let segundosTexto = (segundos < 10 ? "0" : "") + segundos;
+
+                    $("#timer").text(minutosTexto + ":" + segundosTexto);
+                }, 1000);
+            }
+
+            function terminarJuego() {
+                clearInterval(intervaloDeTiempo);
+                let tiempoFinal = $("#timer").text();
+                let mensaje =
+                    "Completaste el juego en " +
+                    tiempoFinal +
+                    " con " +
+                    numeroDeMovimientos +
+                    " movimientos";
+                mostrarMensaje(mensaje, "success");
+            }
+
+            function reiniciarJuego() {
+                clearInterval(intervaloDeTiempo);
+                primeraCartaSeleccionada = null;
+                segundaCartaSeleccionada = null;
+                puedeHacerClick = true;
+                numeroDeMovimientos = 0;
+                parejasEncontradas = 0;
+                juegoHaComenzado = false;
+                tiempoDeInicio = null;
+                intervaloDeTiempo = null;
+
+                actualizarEstadisticas();
+                $("#timer").text("00:00");
+                cerrarMensaje();
+                crearTablero();
+            }
+
+    
+            $(document).on("click", ".memory-card", function () {
+                voltearCarta($(this));
+            });
+
+            $("#restart-btn").on("click", function () {
+                reiniciarJuego();
+            });
+
+            $("#close-message").on("click", function () {
+                reiniciarJuego();
+            });
+
+            $("#game-message-overlay").on("click", function (e) {
+                if (e.target === this) {
+                    cerrarMensaje();
+                }
+            });
+
+     
+            crearTablero();
+            actualizarEstadisticas();
+        });
+    </script>
+    </body>
+    </html>
