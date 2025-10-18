@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Menu - ADSO 2929061-B</title>
 <link rel="stylesheet" href="css/styles.css">
+   <style>
+        div.menus {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            h3 {
+                color: #fff9;
+            }
+        }
+        @media screen and (max-width: 580px) {
+            div.menus {
+                flex-direction: column;
+            }
+        }
+        a.inactive {
+                opacity: 0.5;
+                pointer-events: none;
+            }
+</style>
 </head>
 <body class="main-menu">
     <main>
@@ -52,15 +71,20 @@
                 <span>09</span>
                  Jquery
             </a>
-             <a href="14-php/index.html">
+             <a href="10-php/index.php">
                 <span>14</span>
                  Php
             </a>
-               <a href="14-php/index.html">
-                <span>14</span>
-                 Php
+             <a href="11-typescript/index.html">
+                <span>11</span>
+                 Typescript
+            </a>
+               <a href="15-sql/index.html">
+                <span>15</span>
+                 SQL
             </a>
             </menu>
+            
             
     </main>
 </body class="main-menu">
