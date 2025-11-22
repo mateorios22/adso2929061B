@@ -14,7 +14,7 @@ const mars = new Space.Planet("Mars", 6779);
 const info = Space.describe(mars);
 
 // Display in browser
-const output10 = document.getElementById('output');
+const output10 = document.getElementById('output10');
 if (output10) {
     output10.innerHTML = `
         <li>${info}</li>

@@ -19,7 +19,7 @@ function fetchMessage() {
 function displayMessage() {
     return __awaiter(this, void 0, void 0, function* () {
         const msg = yield fetchMessage();
-        const output13 = document.getElementById('output');
+        const output13 = document.getElementById('output13');
         if (output13) {
             output13.innerHTML = `<li>${msg}</li>`;
         }

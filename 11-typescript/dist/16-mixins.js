@@ -25,7 +25,7 @@ function applyMixins(derivedCtor, baseCtors) {
 applyMixins(Animal, [CanFly, CanSwim]);
 const animal = new Animal();
 // Display in browser
-const output16 = document.getElementById('output');
+const output16 = document.getElementById('output16');
 if (output16) {
     output16.innerHTML = `
         <li><strong>Animal:</strong> ${animal.name}</li>

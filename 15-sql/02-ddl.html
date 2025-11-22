@@ -1,111 +1,94 @@
--- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
---
--- Host: localhost    Database: pokeadso
--- ------------------------------------------------------
--- Server version	10.4.32-MariaDB
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02 - DDL</title>
+<link rel="stylesheet" href="../css/styles.css">
+    <style>
+        section {
+            textarea {
+                background-color: #8d481e;
+                border: none;
+                border-radius: 0.4rem;
+                outline: none;
+                padding: 0.4rem;
+                color: #fff;
+                width: 100%;
+                min-height: 32px;
+                font-size: 0.8rem;
+                resize: none;
+                field-sizing: content;
+            }
+        }
+    </style>
+</head>
+<body class="sql">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <main>
+            <header>
+                <h1>02 - DDL</h1>
+                <p>
+                      Data Definition Language 
+                </p>
+            </header>
+            <section>
+           <h3>CREATE TABLE</h3>
+        <textarea>CREATE TABLE pokemons(
+id INT auto_increment,
+name VARCHAR(32) not null unique,
+type VARCHAR(32) not null,
+strength INT not null,
+stamina INT not null,
+speed INT not null,
+accuracy INT not null,
+PRIMARY KEY(id),
+trainer_id INT,
+FOREIGN KEY (trainer_id) REFERENCES trainers(id)
+);
+        </textarea> 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+        <h3>ALTER table FK</h3>
+         <textarea>ALTER TABLE pokemons
+ADD FOREIGN KEY (trainer_id) 
+REFERENCES trainers(id);
+         </textarea>
 
---
--- Table structure for table `gyms`
---
+        <h3>ALTER TABLE RENAME</h3>
+        <textarea>ALTER TABLE pokemons RENAME TO chachacha;
+        </textarea>
 
-DROP TABLE IF EXISTS `gyms`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `gyms` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+        <h3>ALTER TABLE RENAME COLUMN</h3>
+        <textarea>ALTER TABLE pokemons
+CHANGE nickname name VARCHAR(32) not null unique;
+        </textarea>
+    
+        <h3>ALTER TABLE ADD COLUMN</h3>
+        <textarea>ALTER TABLE pokemons
+ADD COLUMN  color VARCHAR(16);
+        </textarea>
 
---
--- Dumping data for table `gyms`
---
+        <h3>DROP TABLE gyms</h3>
+        <textarea>DROP TABLE gyms;</textarea>
 
-LOCK TABLES `gyms` WRITE;
-/*!40000 ALTER TABLE `gyms` DISABLE KEYS */;
-/*!40000 ALTER TABLE `gyms` ENABLE KEYS */;
-UNLOCK TABLES;
+        <h3>ALTER TABLE DROP COLUMN</h3>
+        <textarea>ALTER TABLE pokemons
+DROP COLUMN color;
+        </textarea>
 
---
--- Table structure for table `pokemons`
---
-
-DROP TABLE IF EXISTS `pokemons`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pokemons` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) NOT NULL,
-  `type` varchar(32) NOT NULL,
-  `strength` int(11) NOT NULL,
-  `staming` int(11) NOT NULL,
-  `speed` int(11) NOT NULL,
-  `accuracy` int(11) NOT NULL,
-  `trainer_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
-  KEY `trainer_id` (`trainer_id`),
-  CONSTRAINT `pokemons_ibfk_1` FOREIGN KEY (`trainer_id`) REFERENCES `trainers` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pokemons`
---
-
-LOCK TABLES `pokemons` WRITE;
-/*!40000 ALTER TABLE `pokemons` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pokemons` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `trainers`
---
-
-DROP TABLE IF EXISTS `trainers`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `trainers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) NOT NULL,
-  `level` int(11) NOT NULL,
-  `gym_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
-  KEY `gym_id` (`gym_id`),
-  CONSTRAINT `trainers_ibfk_1` FOREIGN KEY (`gym_id`) REFERENCES `gyms` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `trainers`
---
-
-LOCK TABLES `trainers` WRITE;
-/*!40000 ALTER TABLE `trainers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `trainers` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2025-10-17 21:04:24
+        <h3>ALTER TABLE ADD COLUMN AFTER COLUMN</h3>
+        <textarea>ALTER TABLE pokemons
+ADD COLUMN  color VARCHAR(16) AFTER accuracy;
+        </textarea>
+            </section>
+        </main>
+        <script>
+            
+        </script>
+    </body>
+    </html>

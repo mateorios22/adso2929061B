@@ -8,7 +8,7 @@ async function fetchMessage(): Promise<string> {
 
 async function displayMessage() {
     const msg = await fetchMessage();
-    const output13 = document.getElementById('output');
+    const output13 = document.getElementById('output13');
     if (output13) {
         output13.innerHTML = `<li>${msg}</li>`;
     }
