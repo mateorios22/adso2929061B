@@ -1,9 +1,13 @@
 <?php
-$tittle = '06 - extends';
-$description = 'Extends: Creating a new class based on an';
+$tittle = '08 - Overwrite Construct';
+$description = "Redefining a parent class's constructor in the child class using parent::__construct()";
 
 include 'template/header.php';
- class VideoGame {
+?>
+
+<section>
+    <?php
+    class VideoGame {
         protected $name;
         protected $platform;
         protected $year;
@@ -19,9 +23,9 @@ include 'template/header.php';
             $this->year = $year;
         }
         public function showVideoGame() {
-            echo "<ul><li> Name: {$this->name} <br>
+            echo "<ul><li>Name: {$this->name} <br>
                            Platform: {$this->platform} <br>
-                           Year: {$this->year} </li></ul>";
+                           Year: {$this->year}</li></ul>";
         }
     }
 
@@ -31,7 +35,9 @@ include 'template/header.php';
     $gm->showVideoGame();
     $gm = new Game('Super Mario Wonder', 'Nintendo Switch', 2023);
     $gm->showVideoGame();
-    
-    
-    include 'template/footer.php';
     ?>
+</section>
+
+<?php
+include 'template/footer.php';
+?>
