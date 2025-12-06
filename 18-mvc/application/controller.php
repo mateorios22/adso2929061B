@@ -7,6 +7,7 @@
             $this->load  = new Load;
             $this->model = new Model;
 
-            $this->load->view('Welcome.php');
+            $data = $this->model->get('pokemons');
+            $this->load->view('Welcome.php', $data);
         }
     }
